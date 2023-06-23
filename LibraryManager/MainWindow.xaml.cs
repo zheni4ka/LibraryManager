@@ -35,8 +35,8 @@ namespace LibraryManager
     [AddINotifyPropertyChangedInterface]
     public class ViewModel
     {
-        public bool checkPrev(Book currBook) { return books.ElementAt(books.IndexOf(currBook) - 1) != null; }
-        public bool checkNext(Book currBook) { return books.ElementAt(books.IndexOf(currBook) + 1) == null; }
+        public bool checkPrev(Book currBook) { return books.IndexOf(currBook) == books.Count - 1; }
+        public bool checkNext(Book currBook) { return books.IndexOf(currBook) == 0; }
         
         private ObservableCollection<Book> books = new ObservableCollection<Book>();
         public IEnumerable<Book> Books => books;
@@ -56,8 +56,8 @@ namespace LibraryManager
             books.Add(new Book("Chorna Rada1", "Panteleymon Kulish1", "a historical novel by the Ukrainian writer Panteleimon Kulish, which depicts a well-known historical event - the black council that took place in Nizhyn in 1663, recreates social contradictions in Ukraine after the victorious war of liberation and accession to the Muscovite kingdom.", 1857));
             SelectedBook = books[0];
 
-            nextBook = new((obj) => Next(), (check) => checkNext((Book)check));
-            previusBook = new((obj) => Prev(), (check) => checkPrev((Book)check));
+            nextBook = new((obj) => Next(), (check) => checkNext(SelectedBook));
+            previusBook = new((obj) => Prev(), (check) => checkPrev(SelectedBook));
         }
 
 
